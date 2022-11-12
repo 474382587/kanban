@@ -1,7 +1,7 @@
 import TaskItem from './TaskItem';
 import './index.scss'
-import { useEffect } from 'react';
-import axios from 'axios';
+// import { useEffect } from 'react';
+// import axios from 'axios';
 
 const DUMMY_DATA = [
   {
@@ -28,18 +28,18 @@ const DUMMY_DATA = [
 ];
 
 const Column = () => {
-  useEffect(async () => {
-    const res = await axios.get('http://localhost:3001/tasks')
-    console.log(res)
+  // useEffect(async () => {
+  //   const res = await axios.get('http://localhost:3001/tasks')
+  //   console.log(res)
     
-    // await axios.post('http://localhost:3001/tasks', {
-    //   id: 4,
-    //   name: 'task4',
-    //   assignee: 'ziming',
-    //   dueDate: '2023-12-02',
-    //   detail: 'lorem ipsum...',
-    // })
-  }, [])
+  //   await axios.post('http://localhost:3001/tasks', {
+  //     id: 4,
+  //     name: 'task4',
+  //     assignee: 'ziming',
+  //     dueDate: '2023-12-02',
+  //     detail: 'lorem ipsum...',
+  //   })
+  // }, [])
   
   return DUMMY_DATA.map((task) => <TaskItem /* PASS PROPS HERE */ />);
 };
