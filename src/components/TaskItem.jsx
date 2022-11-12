@@ -4,9 +4,9 @@ import moment from 'moment';
 import styles from './TaskItem.module.scss';
 
 const TaskItem = () => {
-  const clickEventHandler = () => {
-    console.log('clicked!');
-  };
+  // const clickEventHandler = () => {
+  //   console.log('clicked!');
+  // };
 
   return (
     <Card
