@@ -1,0 +1,15 @@
+.card {
+  border-radius: 12px;
+  :global(.ant-card-body) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.checkmark {
+  &:hover {
+    color: #9fb5ac;
+    cursor: pointer;
+  }
+  margin-right: 6px;
+}
