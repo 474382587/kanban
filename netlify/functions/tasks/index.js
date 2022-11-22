@@ -1,6 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
 const { default: mongoose } = require("mongoose");
 const { Task, Column } = require('./Schema')
+const jwt = require('jsonwebtoken');
+
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -59,6 +61,22 @@ exports.handler = async function (event, context) {
 
     const path = event.path.replace(/\.netlify\/functions\/[^/]+/, '')
     const segments = path.split('/').filter(e => e)
+
+    // console.log(event.headers)
+
+    // parse cookie
+    const { authorization } = event.headers
+
+    if (!authorization || !authorization.split(' ')[1]) throw new Error('no access')
+    const SECRET = 'b83f27a08cc039ab1a700d66c8e2ca6b1eb31b651f09f880e899348fb514899354cb81b275668480ab9b604eda0c4b74f595faa99bd25c6114fc078ff6418458'
+    jwt.verify(authorization.split(' ')[1], SECRET, (err, user) => {
+      if (err) {
+        throw new Error('no access')
+      }
+      console.log(user)
+    })
+
+
 
     switch (httpMethod) {
       case 'GET':
@@ -177,7 +195,9 @@ exports.handler = async function (event, context) {
     return {
       statusCode: 500,
       headers,
-      body: 'Internal Server Error'
+      body: JSON.stringify({
+        msg: error.message
+      })
     }
   }
 

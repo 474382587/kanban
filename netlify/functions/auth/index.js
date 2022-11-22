@@ -61,6 +61,19 @@ const removeColumn = async (id) => {
   })
 }
 
+const login = async ({ username, password }) => {
+  const res = await User.find({
+    username
+  })
+  console.log(res)
+
+  if (res.length < 1) throw new Error('User Does not Exists')
+
+  if (res[0].password !== password) throw new Error('username password does not match')
+
+  return generateAccessToken(username)
+}
+
 
 exports.handler = async function (event, context) {
   // your server-side functionality
@@ -81,23 +94,65 @@ exports.handler = async function (event, context) {
           })
         }
       case 'GET':
-        const columns = await Column.find();
+        const { authorization } = event.headers
+        if (!authorization || !authorization.split(' ')[1]) throw new Error('no access')
+        const SECRET = 'b83f27a08cc039ab1a700d66c8e2ca6b1eb31b651f09f880e899348fb514899354cb81b275668480ab9b604eda0c4b74f595faa99bd25c6114fc078ff6418458'
+        jwt.verify(authorization.split(' ')[1], SECRET, (err, user) => {
+          if (err) {
+            throw new Error('no access')
+          }
+          console.log(user)
+        })
+        if (segments.length === 1 && segments[0] === 'users') {
+          const users = await User.find()
 
-        return {
-          statusCode: 200, // <-- Important!
-          headers,
-          body: JSON.stringify({
-            data: {
-              columns,
-            },
-          }),
-        };
+
+          return {
+            statusCode: 200, // <-- Important!
+            headers,
+            body: JSON.stringify({
+              data: {
+                users
+              }
+            })
+          };
+        }
+        break
+
       case 'POST':
+        if (segments.length === 1) {
+          console.log('login')
+
+
+          const token = await login(JSON.parse(event.body).data);
+          console.log(token)
+          const myCookie = cookie.serialize('access_token', token, {
+            secure: true,
+            httpOnly: true,
+            sameSite: "lax",
+            path: '/',
+            maxAge: tenWeeks,
+          })
+          console.log(myCookie)
+          return {
+            statusCode: 200, // <-- Important!
+            headers: {
+              ...headers,
+              'Set-Cookie': myCookie,
+            },
+            body: JSON.stringify({
+              msg: 'login success',
+              token
+            }),
+          };
+        }
+
+
         console.log('adding new user')
         const token = await addNewUser(JSON.parse(event.body).data);
         console.log(token)
         const myCookie = cookie.serialize('access_token', token, {
-          // secure: true,
+          secure: true,
           httpOnly: true,
           sameSite: "lax",
           path: '/',
@@ -112,6 +167,7 @@ exports.handler = async function (event, context) {
           },
           body: JSON.stringify({
             msg: 'add success',
+            token
           }),
         };
 

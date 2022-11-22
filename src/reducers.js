@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { v4 } from 'uuid'
+// import { v4 } from 'uuid'
 
 const initialState = {
   columns: [{
@@ -74,6 +74,23 @@ export const kanbanSlice = createSlice({
 
 console.log(kanbanSlice.actions)
 
+// const login = async (username, password) => {
+
+//   const res = await axios.post('http://localhost:9999/.netlify/functions/auth/login', {
+//     data: {
+//       id: 'adsasddas-dasdas-dasdasda-sdasvcvdf-gdas-dg',
+//       username: 'v4()',
+//       password: '123123'
+//     }
+//   })
+
+//   if (res.status === 200) {
+//     window.localStorage.setItem('token', res.data.token)
+//     alert('login success')
+//   }
+
+// }
+
 export const { addTask, toggleAddTaskModal, setActiveColIndex, removeTask, updateFirstCol } = kanbanSlice.actions
 export const fetchTasks = () => async dispatch => {
   console.log('asdadasdas')
@@ -91,6 +108,21 @@ export const fetchTasks = () => async dispatch => {
   // get
   // const res = await axios.get('https://lambent-phoenix-5a89bb.netlify.app/.netlify/functions/tasks/6493469c-d594-4f82-sdasd-631e08aa7ffb')
 
+  const token = window.localStorage.getItem('token')
+  // const res = await axios.get('/.netlify/functions/tasks', {
+  //   withCredentials: true,
+  //   headers: {
+  //     Authorization: `Bearer${token}`
+  //   }
+  // })
+  const res = await axios.get('/.netlify/functions/auth/users', {
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  console.log(res, 'resresresresresres')
+
   // post
   // const res = await axios.post('http://localhost:9999/.netlify/functions/tasks', {
   //   data: newTask
@@ -106,16 +138,19 @@ export const fetchTasks = () => async dispatch => {
 
 
   console.log('new User')
-  // post
-  const res = await axios.post('/.netlify/functions/auth', {
-    data: {
-      id: 'adsasddas-dasdas-dasdasda-sdasvcvdf-gdas-dg',
-      username: v4(),
-      password: '123123'
-    }
-  })
+  // // post
+  // const res = await axios.post('http://localhost:9999/.netlify/functions/auth/login', {
+  //   data: {
+  //     id: 'adsasddas-dasdas-dasdasda-sdasvcvdf-gdas-dg',
+  //     username: 'v4()',
+  //     password: '123123'
+  //   }
+  // })
 
-  console.log(11111111111, res.data)
+  // console.log(11111111111, res.data, res)
+
+  // await login()
+
   const { data } = await axios.get('https://my-json-server.typicode.com/474382587/kanban/tasks')
   dispatch(updateFirstCol(data))
 }
