@@ -1,6 +1,5 @@
-import { Avatar, Button, Card, DatePicker, Space, Tag } from 'antd';
+import { Avatar, Card, Space, Tag } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import moment from 'moment';
 import styles from './TaskItem.module.scss';
 
 import cs from './css2.module.css';

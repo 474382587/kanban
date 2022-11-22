@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Column from '../components/Column';
-import { addTask, fetchTasks, toggleAddTaskModal } from '../reducers';
+import { fetchTasks, toggleAddTaskModal } from '../reducers';
 import { Row, Col, Button, Input } from 'antd';
 import AddTaskModal from '../components/AddTaskModal';
 
