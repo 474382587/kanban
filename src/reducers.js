@@ -78,15 +78,15 @@ export const { addTask, toggleAddTaskModal, setActiveColIndex, removeTask, updat
 export const fetchTasks = () => async dispatch => {
   console.log('asdadasdas')
 
-  const newTask = {
-    id: v4(),
-    title: 'task12312313123123',
-    assignee: 'joseph jin',
-    dueDate: '2022-02-02',
-    detail: 'lorem sssssss ipsum...',
-    belongsTo: '6493469c-d594-4f82-a1d2-631e08aa7ffb',
-    priority: 'high'
-  }
+  // const newTask = {
+  //   id: v4(),
+  //   title: 'task12312313123123',
+  //   assignee: 'joseph jin',
+  //   dueDate: '2022-02-02',
+  //   detail: 'lorem sssssss ipsum...',
+  //   belongsTo: '6493469c-d594-4f82-a1d2-631e08aa7ffb',
+  //   priority: 'high'
+  // }
 
   // get
   // const res = await axios.get('http://localhost:9999/.netlify/functions/tasks/6493469c-d594-4f82-sdasd-631e08aa7ffb')
