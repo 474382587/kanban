@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-// import { v4 } from 'uuid'
+import { v4 } from 'uuid'
 
 const initialState = {
   columns: [{
@@ -89,7 +89,7 @@ export const fetchTasks = () => async dispatch => {
   // }
 
   // get
-  // const res = await axios.get('http://localhost:9999/.netlify/functions/tasks/6493469c-d594-4f82-sdasd-631e08aa7ffb')
+  // const res = await axios.get('https://lambent-phoenix-5a89bb.netlify.app/.netlify/functions/tasks/6493469c-d594-4f82-sdasd-631e08aa7ffb')
 
   // post
   // const res = await axios.post('http://localhost:9999/.netlify/functions/tasks', {
@@ -104,7 +104,18 @@ export const fetchTasks = () => async dispatch => {
   //   data: newTask
   // })
 
-  // console.log(11111111111, res.data)
+
+  console.log('new User')
+  // post
+  const res = await axios.post('/.netlify/functions/auth', {
+    data: {
+      id: 'adsasddas-dasdas-dasdasda-sdasvcvdf-gdas-dg',
+      username: v4(),
+      password: '123123'
+    }
+  })
+
+  console.log(11111111111, res.data)
   const { data } = await axios.get('https://my-json-server.typicode.com/474382587/kanban/tasks')
   dispatch(updateFirstCol(data))
 }

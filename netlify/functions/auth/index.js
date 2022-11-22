@@ -99,7 +99,7 @@ exports.handler = async function (event, context) {
         const myCookie = cookie.serialize('access_token', token, {
           // secure: true,
           httpOnly: true,
-
+          sameSite: "lax",
           path: '/',
           maxAge: tenWeeks,
         })
