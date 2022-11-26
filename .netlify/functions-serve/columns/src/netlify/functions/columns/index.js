@@ -77438,7 +77438,7 @@ var { default: mongoose } = require_mongoose();
 var { Task, Column } = require_Schema();
 var headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
   "Access-Control-Allow-Methods": "*"
 };
 var uri = "mongodb+srv://jerkjoe:UkAoBt4swcR5YtJ7@cluster0.t5mtc.mongodb.net/kanban?retryWrites=true&w=majority";
@@ -77455,6 +77455,14 @@ exports.handler = async function(event, context) {
     const path = event.path.replace(/\.netlify\/functions\/[^/]+/, "");
     const segments = path.split("/").filter((e) => e);
     switch (event.httpMethod) {
+      case "OPTIONS": 
+        return{
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            msg: 'success'
+          })
+        };
       case "GET":
         const columns = await Column.find();
         return {
