@@ -11,10 +11,10 @@ const headers = {
 const uri =
   'mongodb+srv://jerkjoe:UkAoBt4swcR5YtJ7@cluster0.t5mtc.mongodb.net/kanban?retryWrites=true&w=majority';
 
-const addNewColumn = async (colName) => {
+const addNewColumn = async ({ colName, id }) => {
   const newCol = new Column({
     title: colName,
-    id: uuidv4(),
+    id
   });
 
   await newCol.save();
