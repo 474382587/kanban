@@ -51,7 +51,7 @@ exports.handler = async function (event, context) {
   try {
     const db = await mongoose.connect(uri)
 
-
+    console.log('taskssssss')
 
 
 
@@ -67,15 +67,24 @@ exports.handler = async function (event, context) {
     // parse cookie
     const { authorization } = event.headers
 
-    if (!authorization || !authorization.split(' ')[1]) throw new Error('no access')
-    const SECRET = 'b83f27a08cc039ab1a700d66c8e2ca6b1eb31b651f09f880e899348fb514899354cb81b275668480ab9b604eda0c4b74f595faa99bd25c6114fc078ff6418458'
-    jwt.verify(authorization.split(' ')[1], SECRET, (err, user) => {
-      if (err) {
-        throw new Error('no access')
-      }
-      console.log(user)
-    })
+    console.log('herherhreerere', authorization)
 
+
+    if (httpMethod === 'OPTIONS') {
+      // do nothing
+    } else {
+      if (!authorization || !authorization.split(' ')[1]) throw new Error('no access')
+
+      const SECRET = 'b83f27a08cc039ab1a700d66c8e2ca6b1eb31b651f09f880e899348fb514899354cb81b275668480ab9b604eda0c4b74f595faa99bd25c6114fc078ff6418458'
+      jwt.verify(authorization.split(' ')[1], SECRET, (err, user) => {
+        if (err) {
+          throw new Error('no access')
+        }
+        console.log(user)
+      })
+    }
+
+    console.log('done =============', httpMethod)
     switch (httpMethod) {
       case 'GET':
         console.log('this is get', segments.length)
@@ -133,6 +142,7 @@ exports.handler = async function (event, context) {
           })
         }
       case 'OPTIONS':
+        console.log('OPTIONSOPTIONSOPTIONSOPTIONSOPTIONS')
         return {
           statusCode: 200, // <-- Important!
           headers,
