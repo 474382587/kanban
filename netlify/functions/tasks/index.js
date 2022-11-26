@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
-   'Access-Control-Allow-Headers': '*',
+  'Access-Control-Allow-Headers': '*',
   'Access-Control-Allow-Methods': '*'
 };
 
@@ -75,15 +75,6 @@ exports.handler = async function (event, context) {
       }
       console.log(user)
     })
-
-    {
-          
-      withCredentials: true,
-      headers: {
-        Origin: 'https://ftp8me.csb.app'
-        Authorization: `Bearer ${token}`
-      }
-    }
 
     switch (httpMethod) {
       case 'GET':
