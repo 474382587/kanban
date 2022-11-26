@@ -5,7 +5,7 @@ const { Column } = require('../tasks/Schema');
 const headers = {
   'Access-Control-Allow-Origin': '*',
    'Access-Control-Allow-Headers': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+  'Access-Control-Allow-Methods': '*',
 };
 
 const uri =

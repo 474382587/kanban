@@ -7,7 +7,7 @@ const { Draw } = require('./schema');
 const headers = {
   'Access-Control-Allow-Origin': '*',
    'Access-Control-Allow-Headers': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+  'Access-Control-Allow-Methods': '*'
 };
 
 const uri = "mongodb+srv://jerkjoe:UkAoBt4swcR5YtJ7@cluster0.t5mtc.mongodb.net/kanban?retryWrites=true&w=majority";

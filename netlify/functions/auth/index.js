@@ -13,7 +13,7 @@ const tenWeeks = 70 * 24 * hour
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Methods': '*',
 };
 
 const uri =
