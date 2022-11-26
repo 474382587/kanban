@@ -4,7 +4,7 @@ const { Column } = require('../tasks/Schema');
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
-   'Access-Control-Allow-Headers': '*',
+  'Access-Control-Allow-Headers': '*',
   'Access-Control-Allow-Methods': '*',
 };
 
@@ -48,6 +48,14 @@ exports.handler = async function (event, context) {
     const segments = path.split('/').filter((e) => e);
 
     switch (event.httpMethod) {
+      case 'OPTIONS':
+        return {
+          statusCode: 200, // <-- Important!
+          headers,
+          body: JSON.stringify({
+            msg: 'success'
+          })
+        }
       case 'GET':
         const columns = await Column.find();
 
