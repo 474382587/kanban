@@ -14,13 +14,15 @@ const uri =
 const addNewColumn = async ({ colName, id }) => {
   const newCol = new Column({
     title: colName,
-    id
+    id,
+    tasks: []
   });
 
   await newCol.save();
 };
 
 const updateColumn = async (id, updatedCol) => {
+  console.log(updatedCol)
   await Column.findOneAndUpdate(
     {
       id,
@@ -107,8 +109,8 @@ exports.handler = async function (event, context) {
             column2
           } = await JSON.parse(event.body).data;
           await updateColumn(column1.id, column1)
-          
-          if(column2) {
+
+          if (column2) {
             await updateColumn(column2.id, column2)
           }
 
@@ -117,7 +119,7 @@ exports.handler = async function (event, context) {
             statusCode: 200, // <-- Important!
             headers,
             body: JSON.stringify({
-              msg: 'add success',
+              msg: 'update order success',
             }),
           };
         }

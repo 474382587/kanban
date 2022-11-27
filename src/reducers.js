@@ -114,8 +114,8 @@ export const fetchTasks = () => async dispatch => {
   //   headers: {
   //     Authorization: `Bearer${token}`
   //   }
-  // })
-  const res = await axios.get('https://lambent-phoenix-5a89bb.netlify.app/.netlify/functions/auth/users', {
+  // })https://lambent-phoenix-5a89bb.netlify.app/.netlify/functions
+  const res = await axios.get('http://localhost:9999/.netlify/functions/tasks', {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,

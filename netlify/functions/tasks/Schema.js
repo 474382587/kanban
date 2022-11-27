@@ -12,7 +12,8 @@ const taskSchema = new mongoose.Schema({
 
 const columnSchema = new mongoose.Schema({
   title: String,
-  id: String
+  id: String,
+  tasks: [String]
 })
 
 const Task = mongoose.model('Task', taskSchema)
