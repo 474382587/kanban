@@ -101,6 +101,26 @@ exports.handler = async function (event, context) {
         }
 
       case 'PUT':
+        if (segments.length === 0) {
+          const {
+            column1,
+            column2
+          } = await JSON.parse(event.body).data;
+          await updateColumn(column1.id, column1)
+          
+          if(column2) {
+            await updateColumn(column2.id, column2)
+          }
+
+
+          return {
+            statusCode: 200, // <-- Important!
+            headers,
+            body: JSON.stringify({
+              msg: 'add success',
+            }),
+          };
+        }
         if (segments.length === 1) {
           const updatedColumn = await JSON.parse(event.body).data;
           await updateColumn(segments[0], updatedColumn)
