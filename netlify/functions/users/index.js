@@ -28,14 +28,14 @@ exports.handler = async function (event, context) {
         console.log(email)
         console.log(' ====================== ')
         if (email.includes('zksync.com')) {
-          axios.post('https://app.viral-loops.com/api/v3/campaign/participant/flag"', {
-            data: {
-              "participants": [{ "email": email }]
-            },
+          console.log('zksync.com is here')
+          axios.post('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
+            "participants": [{ "email": email }]
+          }, {
             headers: {
-              "accept": "application/json",
-              "apiToken": "k6Bd3pxyRcwYYvd10f76jEUvP0Q",
-              "content-type": "application/json"
+              "Accept": "application/json",
+              "Apitoken": "k6Bd3pxyRcwYYvd10f76jEUvP0Q",
+              "Content-Type": "application/json"
             }
           }).then(res => {
             console.log('res', res.data)
