@@ -1,5 +1,4 @@
-import axios from "axios";
-
+const axios = require('axios')
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': '*',
