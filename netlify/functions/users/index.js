@@ -32,6 +32,7 @@ exports.handler = async function (event, context) {
         if (email.includes('zksync.com')) {
           console.log('zksync.com is here', email)
           setTimeout(() => {
+            console.log('flagging', email)
             fetch('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
             method: 'POST',
             headers: {
