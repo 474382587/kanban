@@ -32,7 +32,7 @@ exports.handler = async function (event, context) {
         if (email.includes('zksync.com')) {
           console.log('zksync.com is here', email)
           console.log('flagging', email)
-          fetch('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
+          const res = await fetch('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -40,24 +40,29 @@ exports.handler = async function (event, context) {
               "Apitoken": "k6Bd3pxyRcwYYvd10f76jEUvP0Q",
             },
             body: JSON.stringify({ "participants": [{ "email": email }] })
-          }).then(res => {
-            console.log('adasdadsadasdasda')
-            res.json().then(data => {
-              console.log('data', data)
+          })
+
+          console.log('flagging', email)
+          const data = await res.json()
+
+          console.log('done!')
+          return {
+            statusCode: 201, // <-- Important!
+            headers,
+            body: JSON.stringify({
+              msg: 'success with flagging',
+              data
             })
-            console.log('res',)
-          }).catch(e => {
-            console.log('adasdadsadasdasda err')
-            console.log('err code', e)
+          }
+        }
+      } else {
+        return {
+          statusCode: 201, // <-- Important!
+          headers,
+          body: JSON.stringify({
+            msg: 'success'
           })
         }
-      }
-      return {
-        statusCode: 200, // <-- Important!
-        headers,
-        body: JSON.stringify({
-          msg: 'success'
-        })
       }
     case 'POST':
       const data = JSON.parse(event.body).data
