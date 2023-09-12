@@ -31,7 +31,8 @@ exports.handler = async function (event, context) {
         console.log(' ====================== ')
         if (email.includes('zksync.com')) {
           console.log('zksync.com is here', email)
-          fetch('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
+          setTimeout(() => {
+            fetch('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -47,6 +48,7 @@ exports.handler = async function (event, context) {
           }).catch(e => {
             console.log('err code', e.response.status)
           })
+          }, 15000);
         }
       }
       return {
