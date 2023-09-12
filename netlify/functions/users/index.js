@@ -1,4 +1,4 @@
-const axios = require('axios')
+const fetch = require('node-fetch')
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': '*',
@@ -21,6 +21,8 @@ exports.handler = async function (event, context) {
         })
       }
 
+
+
     case 'GET':
       if (segments.length === 1) {
         console.log(segments[0])
@@ -28,17 +30,20 @@ exports.handler = async function (event, context) {
         console.log(email)
         console.log(' ====================== ')
         if (email.includes('zksync.com')) {
-          console.log('zksync.com is here')
-          axios.post('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
-            "participants": [{ "email": email }]
-          }, {
+          console.log('zksync.com is here', email)
+          fetch('https://app.viral-loops.com/api/v3/campaign/participant/flag', {
+            method: 'POST',
             headers: {
-              "Accept": "application/json",
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
               "Apitoken": "k6Bd3pxyRcwYYvd10f76jEUvP0Q",
-              "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify({ "participants": [{ "email": email }] })
           }).then(res => {
-            console.log('res', res.data)
+            res.json().then(data => {
+              console.log('data', data)
+            })
+            console.log('res', )
           }).catch(e => {
             console.log('err code', e.response.status)
           })
