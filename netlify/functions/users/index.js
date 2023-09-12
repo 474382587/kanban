@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': '*',
@@ -23,6 +25,24 @@ exports.handler = async function (event, context) {
     case 'GET':
       if (segments.length === 1) {
         console.log(segments[0])
+        const email = segments[0]
+        console.log(email)
+        console.log(' ====================== ')
+        if (email.includes('zksync.com')) {
+          axios.post('https://app.viral-loops.com/api/v3/campaign/participant/flag"', {
+            "participants": [{ "email": email }]
+          }, {
+            headers: {
+              "accept": "application/json",
+              "apiToken": "k6Bd3pxyRcwYYvd10f76jEUvP0Q",
+              "content-type": "application/json"
+            }
+          }).then(res => {
+            console.log('res', res.data)
+          }).catch(e => {
+            console.log('err code', e.response.status)
+          })
+        }
       }
       return {
         statusCode: 200, // <-- Important!
