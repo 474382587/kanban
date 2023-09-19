@@ -64,8 +64,9 @@ exports.handler = async function (event, context) {
           })
         }
       }
+      break
     case 'POST':
-      const data = JSON.parse(event.body).data
+      const data = JSON.parse(event.body)
 
 
       console.log('data data data')
